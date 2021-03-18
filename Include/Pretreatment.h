@@ -1,0 +1,1 @@
+__declspec(dllexport) int CleanAnnotation(char* srcdir, char* destdir);
