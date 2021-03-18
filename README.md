@@ -6,11 +6,15 @@ Notice that you should obtain data from source code and binary before analyzing 
 ***gcc-E-linux.c*** file can help you exact data from Linux.
 
 ## How to run it
-These codes are based on flex2.5.35 and general C language compiler. Can be run in Windows system.
+These codes are based on ***Windows*** system.
+
+The ***\*.l file*** should be compiled by ***flex2.5.35*** 
+
+The ***c style code*** can be compiled by general C language compiler like ***Visual Studio***.
 
 You can directly create a new project based on the C code and then run it.
 
-Or you can recompile the ***\*.l*** file in your computer before. 
+You can also recompile the ***\*.l file***  or ignore it. 
 
 ## Paraments
 The first parameter indicates the path you want to save the file to.Like ***"C:\Users\nocan\Desktop\Data\"***
