@@ -10,7 +10,7 @@ These codes are based on flex2.5.35 and general C language compiler. Can be run 
 
 You can directly create a new project based on the C code and then run it.
 
-You can recompile the ***\*.l*** file in your computer before. 
+Or you can recompile the ***\*.l*** file in your computer before. 
 
 ## Paraments
 The first parameter indicates the path you want to save the file to.Like ***"C:\Users\nocan\Desktop\Data\"***
