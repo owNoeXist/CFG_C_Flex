@@ -1,5 +1,5 @@
 # PCFG_C_Flex
-The PCFG_C_Flex can analyze the C code and automatic run IDAPython script in PCFG_IDAPython.
+The PCFG_C_Flex can analyze the C code and automatic run IDAPython script in [PCFG_IDAPython](https://github.com/owNoeXist/PCFG_IDAPython).
 
 Notice that you should obtain data from source code and binary before analyzing it.
 
