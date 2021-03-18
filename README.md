@@ -3,7 +3,7 @@ The C-analyze folder contains the codes for analyzing the C code and automatic r
 
 Notice that you should obtain data from source code and binary before analyzing it.
 
-***gcc-E-linux.c_*** file can help you exact data from Linux.
+***gcc-E-linux.c*** file can help you exact data from Linux.
 
 ## How to run it
 These codes are based on flex2.5.35 and general C language compiler. Can be run in Windows system.
