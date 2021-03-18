@@ -1,5 +1,5 @@
 # PCFG_C_Flex
-The C-analyze folder contains the codes for analyzing the C code and automatic run IDAPython script in PCFG_IDAPython.
+The C-analyze can analyze the C code and automatic run IDAPython script in PCFG_IDAPython.
 
 Notice that you should obtain data from source code and binary before analyzing it.
 
