@@ -15,6 +15,6 @@ Or you can recompile the ***\*.l*** file in your computer before.
 ## Paraments
 The first parameter indicates the path you want to save the file to.Like ***"C:\Users\nocan\Desktop\Data\"***
 
-The second parameter indicates the program name you want to analyze. ***"openssl"***
+The second parameter indicates the program name you want to analyze. Like ***"openssl"***
 
 The following parameters indicate the running mode of program. Like ***"-c -x86-O0 -x86-O1 -x86-O2 -x86-O3 -mips-O0 -mips-O1 -mips-O2 -mips-O3"***
