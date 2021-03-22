@@ -174,7 +174,7 @@ int CdataAnalyze(char* DirData, char* ProgramaName) {
 		if (_mkdir(dirFunc, NULL) != 0)
 			return 1;
 	}
-#if 1
+#if 0
 	/*Extract .c file for lexical analysis and basic block division*/
 	strcpy(fileDir, dirSource);
 	strcat(fileDir, "*");
@@ -215,6 +215,7 @@ int CdataAnalyze(char* DirData, char* ProgramaName) {
 				printf("CdataAnalyze:%s\n", FindFileData.cFileName);
 				GenerateCFG(fileDir, &nodeNum);
 				if (nodeNum <= 1) {
+					remove(fileDir);
 					if (nodeNum > 0)
 						free(node);
 					continue;

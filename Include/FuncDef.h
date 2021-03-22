@@ -59,7 +59,7 @@ struct Node {
 	int endline;
 	int nextnode;
 	int jumpnode;
-	int literal[5];
+	int literal[7];
 	int semantic[MAX_SEQUENCE];
 }*node;
 

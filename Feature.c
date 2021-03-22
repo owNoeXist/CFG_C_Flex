@@ -2,8 +2,10 @@
 
 struct Literal {
 	int LineCal;
+	int ImmediateCal;
 	int StringCal;
 	int AritCal;
+	int LogicalCal;
 	int CallCal;
 	int BackCal;
 }*f;
@@ -11,8 +13,10 @@ struct Literal {
 int GnerateLiteral(char* filename, int Nodenum);
 int BlockLiteral(FILE* fp, int startline, int endline);
 int LineCal(FILE* fp, int startline, int endline);
+int ImmediateCal(FILE* fp, int startline, int endline);
 int StringCal(FILE* fp, int startline, int endline);
 int AritCal(FILE* fp, int startline, int endline);
+int LogicalCal(FILE* fp, int startline, int endline);
 int CallCal(FILE* fp, int startline, int endline);
 int BackCal(FILE* fp, int startline, int endline);
 int GnerateSemantic(char* filename, int Nodenum);
@@ -87,10 +91,12 @@ int GnerateLiteral(char* filename, int Nodenum)
 		}
 		BlockLiteral(fp, node[i].startline, node[i].endline);
 		node[i].literal[0] = f->LineCal;
-		node[i].literal[1] = f->StringCal;
-		node[i].literal[2] = f->AritCal;
-		node[i].literal[3] = f->CallCal;
-		node[i].literal[4] = f->BackCal;
+		node[i].literal[1] = f->ImmediateCal;
+		node[i].literal[2] = f->StringCal;
+		node[i].literal[3] = f->AritCal;
+		node[i].literal[4] = f->LogicalCal;
+		node[i].literal[5] = f->CallCal;
+		node[i].literal[6] = f->BackCal;
 		free(f);
 		Nowline = node[i].endline + 1;
 	}
@@ -106,9 +112,13 @@ int BlockLiteral(FILE* fp, int startline, int endline)
 	tempfp = ftell(fp);
 	f->LineCal = LineCal(fp, startline, endline);
 	fseek(fp, tempfp, SEEK_SET);
+	f->ImmediateCal = StringCal(fp, startline, endline);
+	fseek(fp, tempfp, SEEK_SET);
 	f->StringCal=StringCal(fp, startline, endline);
 	fseek(fp, tempfp, SEEK_SET);
 	f->AritCal = AritCal(fp, startline, endline);
+	fseek(fp, tempfp, SEEK_SET);
+	f->LogicalCal = AritCal(fp, startline, endline);
 	fseek(fp, tempfp, SEEK_SET);
 	f->CallCal =CallCal(fp, startline, endline);
 	fseek(fp, tempfp, SEEK_SET);
@@ -126,6 +136,23 @@ int LineCal(FILE* fp, int startline, int endline)
 }
 
 /*Literal 2*/
+/*Counts the number of Immediate Num in one base block*/
+int ImmediateCal(FILE* fp, int startline, int endline)
+{
+	int i = 0, num = 0;
+	char buf[MAX_STRING], * temp1, * temp2;
+	for (i = startline; i <= endline; i++) {
+		fgets(buf, MAX_STRING, fp);
+		temp1 = buf;
+		while ((temp2 = strstr(temp1, "NUM")) != NULL) {
+			num++;
+			temp1 = temp2 + 3;
+		}
+	}
+	return num;
+}
+
+/*Literal 3*/
 /*Counts the number of string constants in one base block*/
 int StringCal(FILE* fp,int startline,int endline)
 {
@@ -142,24 +169,47 @@ int StringCal(FILE* fp,int startline,int endline)
 	return num;
 }
 
-/*Literal 3*/
+/*Literal 4*/
 /*Counts the number of Arithmetic Instructions in one base block*/
 int AritCal(FILE* fp, int startline, int endline)
 {
-	int i = 0, num = 0;
+	int i = 0, num = 0, state = 0;
 	char buf[MAX_STRING], *temp1, *temp2;
 	for (i = startline; i <= endline; i++) {
 		fgets(buf, MAX_STRING, fp);
 		temp1 = buf;
 		while ((temp2 = strstr(temp1, "CAL")) != NULL) {
-			num++;
-			temp1 = temp2 + 6;
+			state = CheckToken(temp2);
+			if (state == INSTRUCTION_ARITHMETICAL || state == INSTRUCTION_TRANSFER_ARITHMETICAL) {
+				num++;
+			}
+			temp1 = temp2 + 5;
 		}
 	}
 	return num;
 }
 
-/*Literal 4*/
+/*Literal 5*/
+/*Counts the number of Logical Instructions in one base block*/
+int LogicalCal(FILE* fp, int startline, int endline)
+{
+	int i = 0, num = 0, state = 0;
+	char buf[MAX_STRING], * temp1, * temp2;
+	for (i = startline; i <= endline; i++) {
+		fgets(buf, MAX_STRING, fp);
+		temp1 = buf;
+		while ((temp2 = strstr(temp1, "CAL")) != NULL){
+			state = CheckToken(temp2);
+			if (state == INSTRUCTION_LOGICAL || state == INSTRUCTION_TRANSFER_LOGICAL) {
+				num++;
+			}
+			temp1 = temp2 + 5;
+		}
+	}
+	return num;
+}
+
+/*Literal 6*/
 /*Counts the number of Call Instructions in one base block*/
 int CallCal(FILE* fp, int startline, int endline)
 {
@@ -179,7 +229,7 @@ int CallCal(FILE* fp, int startline, int endline)
 	return num;
 }
 
-/*Literal 5*/
+/*Literal 7*/
 /*Counts the number of CallBack Instructions in one base block*/
 int BackCal(FILE* fp, int startline, int endline)
 {
