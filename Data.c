@@ -47,13 +47,9 @@ int GenerateJson(char* dir, char* filename, int Nodenum)
 
 	/*Add Semantic*/
 	Arrays = cJSON_CreateArray();
-	cJSON_AddItemToObject(json, "PFG", Arrays);
-
-	/*Add Semantic*/
-	Arrays = cJSON_CreateArray();
 	for (i = 0; i < Nodenum; i++) {
 		Array = cJSON_CreateArray();
-		for (j = 0; j < 5; j++) {
+		for (j = 0; j < 7; j++) {
 			Number = cJSON_CreateNumber(node[i].literal[j]);
 			cJSON_AddItemToArray(Array, Number);
 		}

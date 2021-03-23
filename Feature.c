@@ -27,51 +27,6 @@ int GnerateFeature(char* filename, int Nodenum) {
 	return 0;
 }
 
-/*------------------------------------PFG----------------------------------------*/
-/*Counts the arguse in one base block*/
-void ArgUse(FILE* fp, int startline, int endline, int* args)
-{
-	int i = 0, num = 0;
-	char buf[MAX_STRING], * temp1, * temp2;
-	for (i = 0; i < 8; i++)
-		args[i] = 0;
-	for (i = startline; i <= endline; i++) {
-		fgets(buf, MAX_STRING, fp);
-		temp1 = buf;
-		while ((temp2 = strstr(temp1, "-ARG-")) != NULL) {
-			temp1 = temp2 + 5;
-			switch (temp1[0]) {
-			case '0':
-				args[0]++;
-				break;
-			case '1':
-				args[1]++;
-				break;
-			case '2':
-				args[2]++;
-				break;
-			case '3':
-				args[3]++;
-				break;
-			case '4':
-				args[4]++;
-				break;
-			case '5':
-				args[5]++;
-				break;
-			case '6':
-				args[6]++;
-				break;
-			case '7':
-				args[7]++;
-				break;
-			}
-			temp1 = temp2 + 6;
-		}
-	}
-	return;
-}
-
 /*------------------------------Code literals------------------------------------*/
 int GnerateLiteral(char* filename, int Nodenum)
 {
